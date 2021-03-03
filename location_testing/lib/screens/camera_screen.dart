@@ -12,8 +12,9 @@ class _CameraScreenState extends State<CameraScreen> {
 
   final picker = ImagePicker();
   void getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
     image = File(pickedFile.path);
+//**BE SURE TO ADD IN ERROR IF NOTHING AVAILABLE */
     setState(() {});
   }
 
@@ -37,7 +38,9 @@ class _CameraScreenState extends State<CameraScreen> {
           SizedBox(height: 40),
           RaisedButton(
             child: Text('Post It!'),
-            onPressed: () {},
+            onPressed: () {
+              //do stuff with photo
+            },
           )
         ],
       ));
