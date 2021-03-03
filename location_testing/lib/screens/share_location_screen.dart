@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ShareLocationScreen extends StatelessWidget {
+class ShareLocationScreen extends StatefulWidget {
+  @override
+  _ShareLocationScreenState createState() => _ShareLocationScreenState();
+}
+
+class _ShareLocationScreenState extends State<ShareLocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
