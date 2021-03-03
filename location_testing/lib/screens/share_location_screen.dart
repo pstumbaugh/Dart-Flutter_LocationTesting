@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
+import 'package:share/share.dart';
 
 class ShareLocationScreen extends StatefulWidget {
   @override
@@ -60,7 +61,10 @@ class _ShareLocationScreenState extends State<ShareLocationScreen> {
               style: Theme.of(context).textTheme.headline4),
           RaisedButton(
             child: Text('Share'),
-            onPressed: () {},
+            onPressed: () {
+              Share.share(
+                  'Hey! Meet me at ${locationData.latitude}, ${locationData.longitude}');
+            },
           )
         ],
       ));
