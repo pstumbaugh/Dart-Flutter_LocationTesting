@@ -26,6 +26,7 @@ dependencies:
   location: ^3.2.4
   image_picker: ^0.6.2
   share: ^0.6.3
+  http: ^0.12.0
 
 
 

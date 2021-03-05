@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/share_location_screen.dart';
 import 'screens/camera_screen.dart';
+import 'screens/remote_data_Screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             title: Text("Location Testing"),
           ),
-          body: CameraScreen()),
+          body: RemoteDataScreen()),
     );
   }
 }
