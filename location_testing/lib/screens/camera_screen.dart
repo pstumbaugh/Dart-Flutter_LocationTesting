@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -19,6 +20,36 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: Firestore.instance.collection('posts').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData &&
+            snapshot.data.documents != null &&
+            snapshot.data.documents.length > 0) {
+          return ListView.builder(
+            itemExtent: 80.0,
+            itemCount: snapshot.data.documents.length,
+            itemBuilder: (context, index) {
+              var post = snapshot.data.documents[index];
+
+              return ListTile(
+                leading: Text(post['weight'].toString()),
+                title: Text('Post Title'),
+              );
+            },
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+}
+
+  /*
   Widget build(BuildContext context) {
     if (image == null) {
       return Center(
@@ -46,9 +77,5 @@ class _CameraScreenState extends State<CameraScreen> {
       ));
     }
   }
-}
-
-  /*
-
 
     */

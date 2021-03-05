@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             title: Text("Location Testing"),
           ),
-          body: RemoteDataScreen()),
+          body: CameraScreen()),
     );
   }
 }
