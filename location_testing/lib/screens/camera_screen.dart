@@ -22,17 +22,17 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: Firestore.instance.collection('posts').snapshots(),
-      builder: (context, snapshot) {
+      stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        print(snapshot);
         if (snapshot.hasData &&
-            snapshot.data.documents != null &&
-            snapshot.data.documents.length > 0) {
+            snapshot.data.docs != null &&
+            snapshot.data.docs.length > 0) {
           return ListView.builder(
             itemExtent: 80.0,
-            itemCount: snapshot.data.documents.length,
+            itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
-              var post = snapshot.data.documents[index];
-
+              var post = snapshot.data.docs[index];
               return ListTile(
                 leading: Text(post['weight'].toString()),
                 title: Text('Post Title'),
