@@ -30,10 +30,10 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        print(snapshot);
+      stream: Firestore.instance.collection('posts').snapshots(),
+      builder: (context, snapshot) {
         if (snapshot.hasData &&
+<<<<<<< HEAD
             snapshot.data.docs != null &&
             snapshot.data.docs.length > 0) {
           return Column(
@@ -56,6 +56,21 @@ class _CameraScreenState extends State<CameraScreen> {
                 },
               ),
             ],
+=======
+            snapshot.data.documents != null &&
+            snapshot.data.documents.length > 0) {
+          return ListView.builder(
+            itemExtent: 80.0,
+            itemCount: snapshot.data.documents.length,
+            itemBuilder: (context, index) {
+              var post = snapshot.data.documents[index];
+
+              return ListTile(
+                leading: Text(post['weight'].toString()),
+                title: Text('Post Title'),
+              );
+            },
+>>>>>>> parent of c7ded09 (firestore work)
           );
         } else {
           return Center(
