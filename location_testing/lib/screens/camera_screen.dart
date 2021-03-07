@@ -29,41 +29,54 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        print(snapshot);
-        if (snapshot.hasData &&
-            snapshot.data.docs != null &&
-            snapshot.data.docs.length > 0) {
-          return Column(
-            children: [
-              ListView.builder(
-                itemExtent: 80.0,
-                itemCount: snapshot.data.docs.length,
-                itemBuilder: (context, index) {
-                  var post = snapshot.data.docs[index];
-                  return ListTile(
-                    leading: Text(post['weight'].toString()),
-                    title: Text('Post Title'),
-                  );
-                },
-              ),
-              RaisedButton(
-                child: Text('Select Photo'),
-                onPressed: () {
-                  getImage();
-                },
-              ),
-            ],
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
-    );
+    if (image == null) {
+      return StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          print(snapshot);
+          if (snapshot.hasData &&
+              snapshot.data.docs != null &&
+              snapshot.data.docs.length > 0) {
+            return Column(
+              children: [
+                ListView.builder(
+                  itemExtent: 80.0,
+                  itemCount: snapshot.data.docs.length,
+                  itemBuilder: (context, index) {
+                    var post = snapshot.data.docs[index];
+                    return ListTile(
+                      leading: Text(post['weight'].toString()),
+                      title: Text('Post Title'),
+                    );
+                  },
+                ),
+                RaisedButton(
+                  child: Text('Select Photo'),
+                  onPressed: () {
+                    getImage();
+                  },
+                ),
+              ],
+            );
+          } else {
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 40),
+                RaisedButton(
+                  child: Text('Select Photo'),
+                  onPressed: () {
+                    getImage();
+                  },
+                )
+              ],
+            ));
+          }
+        },
+      );
+    }
   }
 }
 
