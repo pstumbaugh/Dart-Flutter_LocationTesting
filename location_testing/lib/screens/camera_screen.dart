@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/basic.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -18,59 +16,28 @@ class _CameraScreenState extends State<CameraScreen> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     image = File(pickedFile.path);
 //**BE SURE TO ADD IN ERROR IF NOTHING AVAILABLE */
-    StorageReference storageReference = FirebaseStorage.instance
-        .ref()
-        .child('EXAMPLE.jpg'); //Path.basename(image.path)
-    StorageUploadTask uploadTask = storageReference.putFile(image);
-    await uploadTask.onComplete;
-    final url = await storageReference.getDownloadURL();
-    print(url);
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: Firestore.instance.collection('posts').snapshots(),
-      builder: (context, snapshot) {
+      stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        print(snapshot);
         if (snapshot.hasData &&
-<<<<<<< HEAD
             snapshot.data.docs != null &&
             snapshot.data.docs.length > 0) {
-          return Column(
-            children: [
-              ListView.builder(
-                itemExtent: 80.0,
-                itemCount: snapshot.data.docs.length,
-                itemBuilder: (context, index) {
-                  var post = snapshot.data.docs[index];
-                  return ListTile(
-                    leading: Text(post['weight'].toString()),
-                    title: Text('Post Title'),
-                  );
-                },
-              ),
-              RaisedButton(
-                child: Text('Select Photo'),
-                onPressed: () {
-                  getImage();
-                },
-              ),
-            ],
-=======
-            snapshot.data.documents != null &&
-            snapshot.data.documents.length > 0) {
           return ListView.builder(
             itemExtent: 80.0,
-            itemCount: snapshot.data.documents.length,
+            itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
-              var post = snapshot.data.documents[index];
-
+              var post = snapshot.data.docs[index];
               return ListTile(
                 leading: Text(post['weight'].toString()),
                 title: Text('Post Title'),
               );
             },
->>>>>>> parent of c7ded09 (firestore work)
           );
         } else {
           return Center(
@@ -110,5 +77,4 @@ class _CameraScreenState extends State<CameraScreen> {
       ));
     }
   }
-
     */
